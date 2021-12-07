@@ -1,0 +1,12 @@
+option batch on
+option confirm on
+open sftp://<アカウント名>@<サーバーアドレス>/ -hostkey="ssh-rsa 2048 *****" -privatekey="*****.ppk" -rawsettings FSProtocol=2
+
+cd <リモートディレクトリ>
+lcd <ローカルディレクトリ>
+
+get <ファイル名>
+
+exit
+
+# call "C:\Program Files (x86)\WinSCP\WinSCP.exe" /ini=nul /script=".\script.txt"
