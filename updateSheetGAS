@@ -1,0 +1,37 @@
+function updateSheet() {
+
+  // csvファイルの確認
+  var filename = 'sample.csv';
+  var dir = DriveApp.getFolderById('1X***************************');  //CSV保存先のフォルダID。ブラウザでGoogleドライブのフォルダアクセスしURL参照
+  
+  try {
+    var csvdata = DriveApp.getFilesByName(filename).next();
+  } catch(e) {
+    console.log("ファイルがありません");
+  }
+  
+  if(csvdata != undefined){
+    var data = csvdata.getBlob();
+    var values = Utilities.parseCsv(data.getDataAsString("utf8"));
+    for(var j = 1; j < values.length; j++){
+      //貼付け先スプレッドシートID
+      var ss = SpreadsheetApp.openById('1o***************************************');
+      var sheet = ss.getSheetByName('シート1');//貼付け先シート名
+      var lastRow = sheet.getLastRow();//シート（最新状態）の最終行
+      var key = values[j][0];
+      if(key!=''){ //ポータルデータをエクスポートしてあるので、１行目のみ拾う、２行目以下は受注番号が空白になっていてそれは反映しない
+        for(var i = 3; i < lastRow; i++){
+          var range = sheet.getRange("A"+i);
+          var key2 = range.getValue();
+          if(key==key2){
+            sheet.getRange(i,1,1,12).setValues([values[j]]);//12列目まで反映
+            break;
+          } else if(key2==''){ //最終行に行く前にkey2が空欄の行がないという前提で、最終行を過ぎてしまった場合にレコードを作成するという条件
+            sheet.getRange(i,1,1,12).setValues([values[j]]);
+            break;
+          }
+        }
+      }
+    }
+  }
+}
