@@ -1,0 +1,33 @@
+function csvToSS() {
+  var date = new Date();
+  var yyyymmdd = Utilities.formatDate( date, 'Asia/Tokyo', 'yyyyMMdd');
+  var hh = Utilities.formatDate( date, 'Asia/Tokyo', 'HH');
+
+  // csvファイルの確認
+  var filename = 'サンプル' + yyyymmdd + '.csv';　//CSVファイル名
+  var dir = DriveApp.getFolderById('*********');//GoogleDriveフォルダのIDを記載
+  
+  try {
+    var file = DriveApp.getFilesByName(filename).next();
+  } catch(e) {
+    console.log("ファイルがありません");
+  }
+  
+  if(file != undefined){
+    var ss = SpreadsheetApp.openById('*********'); //スプレッドシートID
+    var sheet = ss.getSheetByName('シート1');//シートのタブ名
+
+    // そのセル範囲にある値のみクリア
+    var lastRow = sheet.getLastRow(); //最下部の行番号を取得
+    var range = sheet.getRange("A2:AG"+lastRow);
+      if(lastRow>=2){
+        range.clearContent();
+      }
+    
+    //CSVからデータを反映
+    var data0 = file.getBlob();
+    var data = data0.getDataAsString("utf8");
+    var values = Utilities.parseCsv(data);
+    sheet.getRange(1, 1, values.length, values[0].length).setValues(values);
+  }
+}
