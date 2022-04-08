@@ -1,0 +1,12 @@
+trigger <<トリガーメソッド>> on Account (after update) {   
+    for(Account acctN : Trigger.New) {
+        Account acctO = Trigger.oldMap.get(acctN.id);
+        if (acctN.Site != acctO.Site ) {
+            Account acct = [Select Name,Site From Account Where Id IN :Trigger.New];
+            <<クラス>>.<<メソッド>>(<<パラメータ1>>,
+                          <<パラメータ2>>,
+                          JSON.serialize(acct));
+        }
+    }
+    
+}
