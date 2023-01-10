@@ -15,8 +15,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 import datetime
 
 if len(sys.argv)<2:
-    folder="C:/Users/012-grp/AppData/Local/Temp/S11"
-    recordNo="WIZCRB0566298"
+    folder="C:/Users/ユーザー/AppData/Local/Temp/S11"
+    recordNo="W＊＊＊＊＊＊＊＊＊＊＊＊"
 elif len(sys.argv)==2:
     folder = sys.argv[0]
     recordNo = sys.argv[1]
@@ -33,7 +33,7 @@ print(recordNo)
 
 # csv、エクセル　ファイルパス
 csv_file = folder+"/"+recordNo+".csv"
-xlsx_file = folder+"/"+r"【Bizポケ_RA_テレマ用】申込エントリーシート_20220207.xlsx"
+xlsx_file = folder+"/"+r"エクセル.xlsx"
 
 
 # 「/」を「￥」に返還
@@ -50,7 +50,7 @@ options.add_experimental_option("prefs", {"download.default_directory": folder_w
 driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
 
 # サイトを開く（ログイン画面）
-driver.get("https://accessell-oasis.com/bizpocket/partner/app/_form/entry/202108_agreement/")
+driver.get("https://a＊＊＊＊＊＊＊＊＊＊")
 time.sleep(1)
 
 #ファイルダウンロード
@@ -59,7 +59,7 @@ driver.find_element_by_xpath("//div[1]/div[2]/div[2]/form/fieldset/div/div[2]/p[
 time.sleep(3)
 
 # ZIPファイルを読み込み
-zip_f = zipfileJPN.ZipFile(folder+'/entry_sheet.zip')
+zip_f = zipfileJPN.ZipFile(folder+'/zipfile.zip')
 
 # ZIPを解凍
 
