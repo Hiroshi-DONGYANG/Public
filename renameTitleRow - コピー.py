@@ -5,10 +5,9 @@ import sys
 # データのアップロード
 # 各種ライブラリインポート
 import time
-import os
-from os.path import expanduser
 import datetime
 import json
+
 
 
 today = datetime.date.today().strftime('%Y%m%d')
