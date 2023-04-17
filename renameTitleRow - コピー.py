@@ -2,10 +2,6 @@
 import openpyxl
 import sys
 
-#メッセージ
-import tkinter as tk
-import tkinter.messagebox as messagebox
-
 # データのアップロード
 # 各種ライブラリインポート
 import time
